@@ -6,8 +6,19 @@ import java.io.InputStreamReader;
 
 class Solution {
     public int[] plusOne(int[] digits) {
-
-        return null;
+        int carry = 0;
+        digits[digits.length - 1] += 1;
+        for(int i = digits.length - 1; i >= 0; --i){
+            int temp = digits[i];
+            digits[i] = (temp + carry) % 10;
+            carry = (temp + carry) / 10;
+            if(carry == 0) break;
+        }
+        if(carry != 0){
+            digits = new int[digits.length + 1];
+            digits[0] = 1;
+        }
+        return digits;
     }
 }
 
