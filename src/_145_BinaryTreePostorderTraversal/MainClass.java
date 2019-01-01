@@ -3,10 +3,7 @@ package _145_BinaryTreePostorderTraversal;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 class TreeNode {
     int val;
@@ -17,13 +14,79 @@ class TreeNode {
         val = x;
     }
 }
+
+class Pair{
+    TreeNode node;
+    int val;
+
+    public TreeNode getNode() {
+        return node;
+    }
+
+    public int getVal() {
+        return val;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
+    }
+
+    public Pair(TreeNode node, int val) {
+        this.node = node;
+        this.val = val;
+    }
+}
 class Solution {
+    //迭代算法
+//    public List<Integer> postorderTraversal(TreeNode root) {
+//        List<Integer> result = new ArrayList<>();
+//        dfs(root, result);
+//        return result;
+//    }
+//
+//    private void dfs(TreeNode root, List<Integer> result){
+//        if(root == null){
+//            return ;
+//        }
+//        dfs(root.left, result);
+//        dfs(root.right, result);
+//        result.add(root.val);
+//    }
+
+    //非迭代算法
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> result = new ArrayList<>();
 
+        Stack<Pair> stack = new Stack<>();
+        if(root != null){
+            Pair pTmp = new Pair(root, -1);
+            stack.push(pTmp);
+            while(!stack.empty()){
+                int val = stack.peek().getVal();
+                TreeNode tmp = stack.peek().getNode();
+                if(val == -1){
+                    //往左遍历
+                    stack.peek().setVal(0);
+                    if(tmp.left != null){
+                        stack.push(new Pair(tmp.left, -1));
+                    }
+
+                }else if(val == 0){
+                    //往右遍历
+                    stack.peek().setVal(1);
+                    if(tmp.right != null){
+                        stack.push(new Pair(tmp.right, -1));
+                    }
+                }else{
+                    //栈退出
+                    result.add(stack.pop().getNode().val);
+                }
+            }
+        }
 
         return result;
     }
+
 }
 
 public class MainClass {
