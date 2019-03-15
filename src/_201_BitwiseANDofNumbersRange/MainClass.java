@@ -13,6 +13,17 @@ class Solution {
 
         return n;
     }
+    public int rangeBitwiseAnd1(int m, int n) {
+        //找公共前缀
+        int step = 0;
+        while(n != m){
+            n >>= 1;
+            m >>= 1;
+            step++;
+        }
+
+        return m << step;
+    }
 }
 
 public class MainClass {
@@ -24,7 +35,7 @@ public class MainClass {
             line = in.readLine();
             int n = Integer.parseInt(line);
 
-            int ret = new Solution().rangeBitwiseAnd(m, n);
+            int ret = new Solution().rangeBitwiseAnd1(m, n);
 
             String out = String.valueOf(ret);
 
