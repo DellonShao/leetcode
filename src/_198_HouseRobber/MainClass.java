@@ -34,6 +34,11 @@ class Solution {
 //
 //        return Math.max(dp[nums.length - 1], dp[nums.length - 2]);
 
+        //上述方法还可以进一步简洁，我们使用两个变量rob和notRob，
+        // 其中rob表示抢当前的房子，notRob表示不抢当前的房子，那么在遍历的过程中，
+        // 我们先用两个变量preRob和preNotRob来分别记录更新之前的值，由于rob是要抢当前的房子，
+        // 由于抢了当前的房子，那么前一个房子一定不能抢，所以使用preNotRob加上当前的数字赋给rob，
+        // 然后notRob表示不能抢当前的房子，那么之前的房子就可以抢也可以不抢，所以我们将preRob和preNotRob中的较大值赋给notRob
         int rob = 0, notRob = 0, n = nums.length;
         for(int i = 0; i < n; ++i){
             int preRob = rob, preNotRob = notRob;
